@@ -65,19 +65,27 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            // Using the enum (type-safe)
+            // Recommended: Use original colors with gradients
             Image.entityIcon(.sparkle)
+                .frame(width: 24, height: 24)
+            
+            Image.entityIcon(.home)
+                .frame(width: 32, height: 32)
+            
+            // If you need tinting (converts to monochrome)
+            EntityIcon.settings.templateImage
                 .foregroundStyle(.blue)
                 .frame(width: 24, height: 24)
             
             // Or directly by name
             Image("Sparkle")
-                .renderingMode(.template)
-                .foregroundStyle(.blue)
+                .renderingMode(.original)
         }
     }
 }
 ```
+
+**Important**: Use `.image` (not `.templateImage`) to preserve the original gradients and colors!
 
 ### UIKit
 

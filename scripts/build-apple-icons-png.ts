@@ -135,7 +135,7 @@ function generateContentsJson(pascalName: string): string {
         author: 'xcode',
       },
       properties: {
-        'template-rendering-intent': 'template',
+        'preserves-vector-representation': false,
       },
     },
     null,
@@ -164,8 +164,14 @@ import SwiftUI
 public enum EntityIcon: String, CaseIterable {
 ${enumCases}
     
-    /// SwiftUI Image for this icon
+    /// SwiftUI Image for this icon with original colors preserved
     public var image: Image {
+        Image(self.rawValue)
+            .renderingMode(.original)
+    }
+    
+    /// SwiftUI Image for this icon as a template (monochrome, tintable)
+    public var templateImage: Image {
         Image(self.rawValue)
             .renderingMode(.template)
     }

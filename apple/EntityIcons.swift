@@ -20,8 +20,14 @@ public enum EntityIcon: String, CaseIterable {
     case user = "User"
     case users = "Users"
     
-    /// SwiftUI Image for this icon
+    /// SwiftUI Image for this icon with original colors preserved
     public var image: Image {
+        Image(self.rawValue)
+            .renderingMode(.original)
+    }
+    
+    /// SwiftUI Image for this icon as a template (monochrome, tintable)
+    public var templateImage: Image {
         Image(self.rawValue)
             .renderingMode(.template)
     }
