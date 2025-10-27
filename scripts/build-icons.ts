@@ -1,0 +1,298 @@
+#!/usr/bin/env tsx
+
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const ROOT_DIR = path.resolve(__dirname, '..');
+const SVG_DIR = path.join(ROOT_DIR, 'src', 'svg');
+const ICONS_DIR = path.join(ROOT_DIR, 'src', 'icons');
+
+interface IconInfo {
+  name: string;
+  pascalName: string;
+  category: string;
+  svgContent: string;
+  filePath: string;
+}
+
+/**
+ * Convert kebab-case to PascalCase
+ */
+function toPascalCase(str: string): string {
+  return str
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('');
+}
+
+/**
+ * Extract SVG path content from SVG file
+ */
+function extractSvgContent(svgString: string): string {
+  // Remove XML declaration, comments, and svg wrapper
+  let content = svgString
+    .replace(/<\?xml[^>]*\?>/g, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .trim();
+
+  // Extract content between <svg> tags
+  const match = content.match(/<svg[^>]*>([\s\S]*)<\/svg>/);
+  if (match) {
+    content = match[1].trim();
+  }
+
+  // Normalize attributes
+  content = content
+    .replace(/stroke="[^"]*"/g, 'stroke="currentColor"')
+    .replace(/fill="[^"]*"/g, 'fill="none"')
+    .replace(/stroke-width="[^"]*"/g, '')
+    .replace(/stroke-linecap="[^"]*"/g, '')
+    .replace(/stroke-linejoin="[^"]*"/g, '')
+    .replace(/\sclass=/g, ' className=')  // Convert class to className for React
+    .replace(/\sclip-path=/g, ' clipPath=')  // Convert clip-path to clipPath
+    .replace(/\sstop-color=/g, ' stopColor=')  // Convert stop-color to stopColor
+    .replace(/\sstop-opacity=/g, ' stopOpacity=');  // Convert stop-opacity to stopOpacity
+
+  return content.trim();
+}
+
+/**
+ * Generate TSX component from icon info
+ */
+function generateComponent(icon: IconInfo): string {
+  return `import { IconBase } from '../../core/IconBase';
+import type { IconProps } from '../../core/types';
+
+export function ${icon.pascalName}(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      ${icon.svgContent}
+    </IconBase>
+  );
+}
+`;
+}
+
+/**
+ * Scan SVG directory and collect all icons
+ */
+async function collectIcons(): Promise<IconInfo[]> {
+  const icons: IconInfo[] = [];
+
+  try {
+    const categories = await fs.readdir(SVG_DIR);
+
+    for (const category of categories) {
+      const categoryPath = path.join(SVG_DIR, category);
+      const stat = await fs.stat(categoryPath);
+
+      if (!stat.isDirectory()) continue;
+
+      const files = await fs.readdir(categoryPath);
+
+      for (const file of files) {
+        if (!file.endsWith('.svg')) continue;
+
+        const filePath = path.join(categoryPath, file);
+        const svgContent = await fs.readFile(filePath, 'utf-8');
+        const name = file.replace('.svg', '');
+        const pascalName = toPascalCase(name);
+
+        icons.push({
+          name,
+          pascalName,
+          category,
+          svgContent: extractSvgContent(svgContent),
+          filePath,
+        });
+      }
+    }
+  } catch (error) {
+    console.warn('SVG directory not found or empty. Skipping SVG processing.');
+    return [];
+  }
+
+  return icons;
+}
+
+/**
+ * Generate icon components
+ */
+async function generateComponents(icons: IconInfo[]): Promise<void> {
+  // Group icons by category
+  const categories = new Map<string, IconInfo[]>();
+  for (const icon of icons) {
+    if (!categories.has(icon.category)) {
+      categories.set(icon.category, []);
+    }
+    categories.get(icon.category)!.push(icon);
+  }
+
+  // Generate component files
+  for (const [category, categoryIcons] of categories) {
+    const categoryDir = path.join(ICONS_DIR, category);
+    await fs.mkdir(categoryDir, { recursive: true });
+
+    for (const icon of categoryIcons) {
+      const componentPath = path.join(categoryDir, `${icon.pascalName}.tsx`);
+      const componentCode = generateComponent(icon);
+      await fs.writeFile(componentPath, componentCode, 'utf-8');
+    }
+  }
+
+  console.log(`✓ Generated ${icons.length} icon components`);
+}
+
+/**
+ * Generate barrel exports and registry
+ */
+async function generateBarrel(icons: IconInfo[]): Promise<void> {
+  const imports: string[] = [];
+  const exports: string[] = [];
+  const registryEntries: string[] = [];
+
+  // Group by category
+  const categories = new Map<string, IconInfo[]>();
+  for (const icon of icons) {
+    if (!categories.has(icon.category)) {
+      categories.set(icon.category, []);
+    }
+    categories.get(icon.category)!.push(icon);
+  }
+
+  // Generate imports and exports
+  for (const [category, categoryIcons] of categories) {
+    for (const icon of categoryIcons) {
+      imports.push(`import { ${icon.pascalName} } from './${category}/${icon.pascalName}';`);
+      exports.push(icon.pascalName);
+      registryEntries.push(`  ${icon.pascalName},`);
+    }
+  }
+
+  const barrelContent = `/**
+ * Auto-generated icon registry and exports
+ * This file is generated by scripts/build-icons.ts
+ * Do not edit manually
+ */
+
+import type { IconRegistry } from '../core/types';
+
+${imports.join('\n')}
+
+// Export all icons for named imports
+export {
+  ${exports.join(',\n  ')}
+};
+
+// Registry for dynamic icon loading
+export const registry: IconRegistry = {
+${registryEntries.join('\n')}
+};
+`;
+
+  const barrelPath = path.join(ICONS_DIR, 'index.ts');
+  await fs.writeFile(barrelPath, barrelContent, 'utf-8');
+
+  console.log('✓ Generated icon barrel and registry');
+}
+
+/**
+ * Generate TypeScript type for icon names
+ */
+async function generateTypes(icons: IconInfo[]): Promise<void> {
+  const iconNames = icons.map((icon) => `  | '${icon.pascalName}'`).join('\n');
+
+  const typesContent = `import type { SVGAttributes } from 'react';
+
+/**
+ * Base props for all icon components
+ */
+export interface IconProps extends Omit<SVGAttributes<SVGElement>, 'color'> {
+  /**
+   * Size of the icon (width and height)
+   * @default 24
+   */
+  size?: number | string;
+  
+  /**
+   * Color of the icon
+   * @default "currentColor"
+   */
+  color?: string;
+  
+  /**
+   * Accessible title for the icon
+   * When provided, the icon will have role="img"
+   */
+  title?: string;
+  
+  /**
+   * ID for the title element (for aria-labelledby)
+   * Auto-generated if not provided when title is set
+   */
+  titleId?: string;
+  
+  /**
+   * Additional CSS class names
+   */
+  className?: string;
+  
+  /**
+   * Inline styles
+   */
+  style?: React.CSSProperties;
+}
+
+/**
+ * Icon component type
+ */
+export type IconComponent = React.FC<IconProps>;
+
+/**
+ * Union type of all available icon names
+ */
+export type IconName =
+${iconNames || "  | string"};
+
+/**
+ * Registry mapping icon names to their components
+ */
+export type IconRegistry = Record<IconName, IconComponent>;
+`;
+
+  const typesPath = path.join(ROOT_DIR, 'src', 'core', 'types.ts');
+  await fs.writeFile(typesPath, typesContent, 'utf-8');
+
+  console.log('✓ Generated TypeScript types');
+}
+
+/**
+ * Main build process
+ */
+async function main() {
+  console.log('🔨 Building entity-icons...\n');
+
+  const icons = await collectIcons();
+
+  if (icons.length === 0) {
+    console.log('⚠️  No icons found. Place SVG files in src/svg/{category}/ directories.');
+    console.log('   Example: src/svg/system/add.svg\n');
+    return;
+  }
+
+  await generateComponents(icons);
+  await generateBarrel(icons);
+  await generateTypes(icons);
+
+  console.log(`\n✅ Successfully built ${icons.length} icons!`);
+}
+
+main().catch((error) => {
+  console.error('❌ Build failed:', error);
+  process.exit(1);
+});
+
