@@ -85,26 +85,49 @@ This package is published as **`@entityy/entity-icons`** on npm.
 Use the npm package as documented below.
 
 ### iOS / macOS / Swift
-For Apple platforms, generate vector PDF assets:
+
+Pre-built Apple assets are included in the npm package. **No build tools needed for users.**
+
+#### Installation
 
 ```bash
-pnpm run build:apple
+npm install @entityy/entity-icons
 ```
 
-This creates:
-- `apple/Assets.xcassets/` - Xcode asset catalog
-- `apple/EntityIcons.swift` - Type-safe Swift enum
+#### Setup (One Time)
 
-**Requirements**: Install `librsvg` or `inkscape`:
+Copy the pre-built assets to your Xcode project:
+
 ```bash
-brew install librsvg  # recommended
+# From your iOS/macOS project directory
+cp -r node_modules/@entityy/entity-icons/apple/Assets.xcassets ./YourApp/
+cp node_modules/@entityy/entity-icons/apple/EntityIcons.swift ./YourApp/
 ```
 
-**Usage in SwiftUI**:
+Then drag both files into Xcode.
+
+#### Usage in SwiftUI
+
 ```swift
+import SwiftUI
+
+// Type-safe enum (recommended)
 Image.entityIcon(.sparkle)
     .foregroundStyle(.blue)
     .frame(width: 24, height: 24)
+
+// Or by name
+Image("Sparkle")
+    .renderingMode(.template)
+    .foregroundStyle(.blue)
+```
+
+#### Usage in UIKit
+
+```swift
+let icon = EntityIcon.home.uiImage
+imageView.image = icon
+imageView.tintColor = .systemBlue
 ```
 
 See [apple/README.md](./apple/README.md) for full documentation.
