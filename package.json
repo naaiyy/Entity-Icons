@@ -1,6 +1,6 @@
 {
   "name": "@entityy/entity-icons",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Modern React icon library with ESM support and full TypeScript types",
   "type": "module",
   "main": "./dist/index.js",
