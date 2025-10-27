@@ -16,11 +16,14 @@
   },
   "files": [
     "dist",
+    "apple",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "build": "tsx scripts/build-icons.ts && tsup",
+    "build:apple": "tsx scripts/build-apple-icons.ts",
+    "build:all": "pnpm run build && pnpm run build:apple",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
@@ -28,7 +31,7 @@
     "format": "biome format --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build:all"
   },
   "peerDependencies": {
     "react": ">=18.0.0"

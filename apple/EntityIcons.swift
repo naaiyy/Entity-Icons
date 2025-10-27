@@ -1,0 +1,54 @@
+//
+//  EntityIcons.swift
+//  Generated from @entityy/entity-icons
+//
+//  DO NOT EDIT - This file is auto-generated
+//
+
+import SwiftUI
+
+/// Type-safe access to Entity Icons
+public enum EntityIcon: String, CaseIterable {
+    case chat = "Chat"
+    case folder = "Folder"
+    case home = "Home"
+    case inbox = "Inbox"
+    case layers = "Layers"
+    case settings = "Settings"
+    case sparkle = "Sparkle"
+    case square_grid = "SquareGrid"
+    case user = "User"
+    case users = "Users"
+    
+    /// SwiftUI Image for this icon
+    public var image: Image {
+        Image(self.rawValue)
+            .renderingMode(.template)
+    }
+    
+    /// UIKit UIImage for this icon
+    #if canImport(UIKit)
+    public var uiImage: UIImage? {
+        UIImage(named: self.rawValue)?.withRenderingMode(.alwaysTemplate)
+    }
+    #endif
+    
+    /// AppKit NSImage for this icon
+    #if canImport(AppKit)
+    public var nsImage: NSImage? {
+        if let image = NSImage(named: self.rawValue) {
+            image.isTemplate = true
+            return image
+        }
+        return nil
+    }
+    #endif
+}
+
+// MARK: - SwiftUI View Extension
+extension Image {
+    /// Create an Entity Icon with template rendering
+    public static func entityIcon(_ icon: EntityIcon) -> Image {
+        icon.image
+    }
+}

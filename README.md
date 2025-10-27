@@ -79,6 +79,36 @@ export function MyCustomIcon(props: IconProps) {
 
 This package is published as **`@entityy/entity-icons`** on npm.
 
+## Cross-Platform Support
+
+### Web / React
+Use the npm package as documented below.
+
+### iOS / macOS / Swift
+For Apple platforms, generate vector PDF assets:
+
+```bash
+pnpm run build:apple
+```
+
+This creates:
+- `apple/Assets.xcassets/` - Xcode asset catalog
+- `apple/EntityIcons.swift` - Type-safe Swift enum
+
+**Requirements**: Install `librsvg` or `inkscape`:
+```bash
+brew install librsvg  # recommended
+```
+
+**Usage in SwiftUI**:
+```swift
+Image.entityIcon(.sparkle)
+    .foregroundStyle(.blue)
+    .frame(width: 24, height: 24)
+```
+
+See [apple/README.md](./apple/README.md) for full documentation.
+
 ## API
 
 ### Icon Props

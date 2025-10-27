@@ -2,6 +2,7 @@
 src/
 tests/
 scripts/
+tmp/
 
 # Config files
 tsconfig.json
