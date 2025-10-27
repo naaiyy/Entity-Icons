@@ -46,12 +46,8 @@ function extractSvgContent(svgString: string): string {
   }
 
   // Normalize attributes
+  // NOTE: We DON'T normalize fill/stroke here to preserve gradients and complex styling
   content = content
-    .replace(/stroke="[^"]*"/g, 'stroke="currentColor"')
-    .replace(/fill="[^"]*"/g, 'fill="none"')
-    .replace(/stroke-width="[^"]*"/g, '')
-    .replace(/stroke-linecap="[^"]*"/g, '')
-    .replace(/stroke-linejoin="[^"]*"/g, '')
     .replace(/\sclass=/g, ' className=')  // Convert class to className for React
     .replace(/\sclip-path=/g, ' clipPath=')  // Convert clip-path to clipPath
     .replace(/\sstop-color=/g, ' stopColor=')  // Convert stop-color to stopColor
