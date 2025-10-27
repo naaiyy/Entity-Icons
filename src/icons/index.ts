@@ -6,14 +6,41 @@
 
 import type { IconRegistry } from '../core/types';
 
+import { Chat } from './system/Chat';
+import { Folder } from './system/Folder';
+import { Home } from './system/Home';
+import { Inbox } from './system/Inbox';
+import { Layers } from './system/Layers';
+import { Settings } from './system/Settings';
 import { Sparkle } from './system/Sparkle';
+import { SquareGrid } from './system/SquareGrid';
+import { User } from './system/User';
+import { Users } from './system/Users';
 
 // Export all icons for named imports
 export {
-  Sparkle
+  Chat,
+  Folder,
+  Home,
+  Inbox,
+  Layers,
+  Settings,
+  Sparkle,
+  SquareGrid,
+  User,
+  Users
 };
 
 // Registry for dynamic icon loading
 export const registry: IconRegistry = {
+  Chat,
+  Folder,
+  Home,
+  Inbox,
+  Layers,
+  Settings,
   Sparkle,
+  SquareGrid,
+  User,
+  Users,
 };

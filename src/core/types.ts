@@ -48,7 +48,16 @@ export type IconComponent = React.FC<IconProps>;
  * Union type of all available icon names
  */
 export type IconName =
-  | 'Sparkle';
+  | 'Chat'
+  | 'Folder'
+  | 'Home'
+  | 'Inbox'
+  | 'Layers'
+  | 'Settings'
+  | 'Sparkle'
+  | 'SquareGrid'
+  | 'User'
+  | 'Users';
 
 /**
  * Registry mapping icon names to their components
