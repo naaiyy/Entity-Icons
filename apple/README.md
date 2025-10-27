@@ -4,8 +4,10 @@ This directory contains **pre-built** iOS and macOS assets. You **do not** need 
 
 ## Contents
 
-- **Assets.xcassets/** - Xcode asset catalog with vector PDFs (ready to use)
+- **Assets.xcassets/** - Xcode asset catalog with multi-resolution PNGs (1x, 2x, 3x)
 - **EntityIcons.swift** - Type-safe Swift enum for icon access
+
+**Note**: PNGs are used instead of PDFs to preserve complex gradients, filters, and effects from the original SVGs.
 
 ## Quick Start for Swift Users
 
@@ -100,9 +102,10 @@ imageView.contentTintColor = .systemBlue
 ## Asset Properties
 
 All assets are configured with:
-- **Template rendering**: Enables tinting with SwiftUI/UIKit colors
-- **Preserves vector representation**: Keeps PDF as vector at runtime for crisp scaling
+- **Template rendering**: Enables tinting with SwiftUI/UIKit colors (applies to solid colors)
+- **Multi-resolution PNGs**: 1x (24px), 2x (48px), 3x (72px) for all screen densities
 - **Universal idiom**: Works on all device sizes
+- **Full gradient support**: PNGs preserve all gradients, filters, and complex effects from SVGs
 
 ## Integration with Xcode
 

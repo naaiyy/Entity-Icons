@@ -22,7 +22,7 @@
   ],
   "scripts": {
     "build": "tsx scripts/build-icons.ts && tsup",
-    "build:apple": "tsx scripts/build-apple-icons.ts",
+    "build:apple": "tsx scripts/build-apple-icons-png.ts",
     "build:all": "pnpm run build && pnpm run build:apple",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
