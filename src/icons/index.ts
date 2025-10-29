@@ -6,6 +6,11 @@
 
 import type { IconRegistry } from '../core/types';
 
+import { GithubDark } from './brand/GithubDark';
+import { GithubLight } from './brand/GithubLight';
+import { Google } from './brand/Google';
+import { PasskeyDark } from './brand/PasskeyDark';
+import { PasskeyLight } from './brand/PasskeyLight';
 import { Chat } from './system/Chat';
 import { Folder } from './system/Folder';
 import { Home } from './system/Home';
@@ -19,6 +24,11 @@ import { Users } from './system/Users';
 
 // Export all icons for named imports
 export {
+  GithubDark,
+  GithubLight,
+  Google,
+  PasskeyDark,
+  PasskeyLight,
   Chat,
   Folder,
   Home,
@@ -33,6 +43,11 @@ export {
 
 // Registry for dynamic icon loading
 export const registry: IconRegistry = {
+  GithubDark,
+  GithubLight,
+  Google,
+  PasskeyDark,
+  PasskeyLight,
   Chat,
   Folder,
   Home,

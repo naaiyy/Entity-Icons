@@ -9,6 +9,11 @@ import SwiftUI
 
 /// Type-safe access to Entity Icons
 public enum EntityIcon: String, CaseIterable {
+    case github_dark = "GithubDark"
+    case github_light = "GithubLight"
+    case google = "Google"
+    case passkey_dark = "PasskeyDark"
+    case passkey_light = "PasskeyLight"
     case chat = "Chat"
     case folder = "Folder"
     case home = "Home"

@@ -48,6 +48,11 @@ export type IconComponent = React.FC<IconProps>;
  * Union type of all available icon names
  */
 export type IconName =
+  | 'GithubDark'
+  | 'GithubLight'
+  | 'Google'
+  | 'PasskeyDark'
+  | 'PasskeyLight'
   | 'Chat'
   | 'Folder'
   | 'Home'
