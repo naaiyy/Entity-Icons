@@ -52,7 +52,8 @@ function extractSvgContent(svgString: string): string {
     .replace(/\sclip-path=/g, ' clipPath=')  // Convert clip-path to clipPath
     .replace(/\sstop-color=/g, ' stopColor=')  // Convert stop-color to stopColor
     .replace(/\sstop-opacity=/g, ' stopOpacity=')  // Convert stop-opacity to stopOpacity
-    .replace(/\sxlink:href=/g, ' xlinkHref=');  // Convert xlink:href to xlinkHref for React
+    .replace(/\sxlink:href=/g, ' xlinkHref=')  // Convert xlink:href to xlinkHref for React
+    .replace(/\scolor-interpolation-filters=/g, ' colorInterpolationFilters=');  // Convert color-interpolation-filters for React
 
   return content.trim();
 }

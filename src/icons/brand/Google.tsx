@@ -3,7 +3,7 @@ import type { IconProps } from '../../core/types';
 
 export function Google(props: IconProps) {
   return (
-    <IconBase {...props}>
+    <IconBase {...props} viewBox="0 0 268.1522 273.8827">
       <defs>
     <linearGradient id="a">
       <stop offset="0" stopColor="#0fbc5c"/>
@@ -83,10 +83,10 @@ export function Google(props: IconProps) {
     <radialGradient xlinkHref="#f" id="p" cx="207.6733" cy="108.0972" fx="207.6733" fy="108.0972" r="41.1025" gradientTransform="matrix(-1.249206,1.343263,-3.896837,-3.425693,880.5011,194.9051)" gradientUnits="userSpaceOnUse"/>
     <radialGradient xlinkHref="#g" id="r" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-1.936885,-1.043001,1.455731,-2.555422,290.5254,838.6834)" cx="109.6267" cy="135.8619" fx="109.6267" fy="135.8619" r="71.46001"/>
     <radialGradient xlinkHref="#h" id="j" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-0.081402,-1.93722,2.926737,-0.1162508,-215.1345,632.8606)" cx="154.8697" cy="145.9691" fx="154.8697" fy="145.9691" r="71.46001"/>
-    <filter id="q" x="-.04842873" y="-.0582241" width="1.096857" height="1.116448" color-interpolation-filters="sRGB">
+    <filter id="q" x="-.04842873" y="-.0582241" width="1.096857" height="1.116448" colorInterpolationFilters="sRGB">
       <feGaussianBlur stdDeviation="1.700914"/>
     </filter>
-    <filter id="k" x="-.01670084" y="-.01009856" width="1.033402" height="1.020197" color-interpolation-filters="sRGB">
+    <filter id="k" x="-.01670084" y="-.01009856" width="1.033402" height="1.020197" colorInterpolationFilters="sRGB">
       <feGaussianBlur stdDeviation=".2419367"/>
     </filter>
     <clipPath clipPathUnits="userSpaceOnUse" id="i">
