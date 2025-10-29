@@ -20,11 +20,7 @@ export function Example1() {
 
 // Example 2: Dynamic rendering with core.render()
 export function Example2({ iconName }: { iconName: string }) {
-  return (
-    <div>
-      {core.render(iconName, { size: 24, color: 'blue' })}
-    </div>
-  );
+  return <div>{core.render(iconName, { size: 24, color: 'blue' })}</div>;
 }
 
 // Example 3: Accessible icons with titles
@@ -42,10 +38,10 @@ export function Example3() {
 export function Example4() {
   return (
     <div>
-      <Sparkle 
-        size={40} 
-        color="purple" 
-        className="my-icon-class" 
+      <Sparkle
+        size={40}
+        color="purple"
+        className="my-icon-class"
         style={{ cursor: 'pointer' }}
         onClick={() => console.log('Icon clicked!')}
       />
@@ -56,7 +52,7 @@ export function Example4() {
 // Example 5: Icon grid from registry
 export function Example5() {
   const iconNames = Object.keys(core.registry);
-  
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '1rem' }}>
       {iconNames.map((name) => (
@@ -79,17 +75,18 @@ export function CustomHeartIcon(props: IconProps) {
 }
 
 // Example 7: Icon button component
-export function IconButton({ 
-  icon, 
-  label, 
-  onClick 
-}: { 
-  icon: keyof typeof core.registry; 
+export function IconButton({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: keyof typeof core.registry;
   label: string;
   onClick?: () => void;
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       style={{
         display: 'flex',
@@ -114,16 +111,16 @@ export function Example8() {
     <div>
       {/* Small */}
       <Sparkle size={16} />
-      
+
       {/* Medium (default) */}
       <Sparkle size={24} />
-      
+
       {/* Large */}
       <Sparkle size={32} />
-      
+
       {/* Extra large */}
       <Sparkle size={48} />
-      
+
       {/* String size (em-based) */}
       <Sparkle size="2em" />
     </div>
@@ -154,4 +151,3 @@ export function Example10() {
     />
   );
 }
-

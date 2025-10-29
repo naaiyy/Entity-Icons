@@ -49,12 +49,12 @@ function extractSvgContent(svgString: string): string {
   // Normalize attributes
   // NOTE: We DON'T normalize fill/stroke here to preserve gradients and complex styling
   content = content
-    .replace(/\sclass=/g, ' className=')  // Convert class to className for React
-    .replace(/\sclip-path=/g, ' clipPath=')  // Convert clip-path to clipPath
-    .replace(/\sstop-color=/g, ' stopColor=')  // Convert stop-color to stopColor
-    .replace(/\sstop-opacity=/g, ' stopOpacity=')  // Convert stop-opacity to stopOpacity
-    .replace(/\sxlink:href=/g, ' xlinkHref=')  // Convert xlink:href to xlinkHref for React
-    .replace(/\scolor-interpolation-filters=/g, ' colorInterpolationFilters=');  // Convert color-interpolation-filters for React
+    .replace(/\sclass=/g, ' className=') // Convert class to className for React
+    .replace(/\sclip-path=/g, ' clipPath=') // Convert clip-path to clipPath
+    .replace(/\sstop-color=/g, ' stopColor=') // Convert stop-color to stopColor
+    .replace(/\sstop-opacity=/g, ' stopOpacity=') // Convert stop-opacity to stopOpacity
+    .replace(/\sxlink:href=/g, ' xlinkHref=') // Convert xlink:href to xlinkHref for React
+    .replace(/\scolor-interpolation-filters=/g, ' colorInterpolationFilters='); // Convert color-interpolation-filters for React
 
   return content.trim();
 }
@@ -267,7 +267,7 @@ export type IconComponent = React.FC<IconProps>;
  * Union type of all available icon names
  */
 export type IconName =
-${iconNames || "  | string"};
+${iconNames || '  | string'};
 
 /**
  * Registry mapping icon names to their components
@@ -306,4 +306,3 @@ main().catch((error) => {
   console.error('❌ Build failed:', error);
   process.exit(1);
 });
-

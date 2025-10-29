@@ -1,9 +1,9 @@
 #!/usr/bin/env tsx
 
+import { exec } from 'node:child_process';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
@@ -38,7 +38,7 @@ function toPascalCase(str: string): string {
  */
 async function checkDependencies(): Promise<void> {
   console.log('🔍 Checking dependencies...');
-  
+
   try {
     await execAsync('which rsvg-convert');
     console.log('✓ rsvg-convert found');
@@ -60,7 +60,7 @@ async function collectIcons(): Promise<IconInfo[]> {
 
     for (const category of categories) {
       if (category.startsWith('.')) continue;
-      
+
       const categoryPath = path.join(SVG_DIR, category);
       const stat = await fs.stat(categoryPath);
 
@@ -94,17 +94,11 @@ async function collectIcons(): Promise<IconInfo[]> {
 /**
  * Convert SVG to PNG at multiple scales
  */
-async function convertSvgToPng(
-  svgPath: string,
-  outputPath: string,
-  scale: number
-): Promise<void> {
+async function convertSvgToPng(svgPath: string, outputPath: string, scale: number): Promise<void> {
   const width = 24 * scale;
   const height = 24 * scale;
-  
-  await execAsync(
-    `rsvg-convert -w ${width} -h ${height} -o "${outputPath}" "${svgPath}"`
-  );
+
+  await execAsync(`rsvg-convert -w ${width} -h ${height} -o "${outputPath}" "${svgPath}"`);
 }
 
 /**
@@ -139,7 +133,7 @@ function generateContentsJson(pascalName: string): string {
       },
     },
     null,
-    2
+    2,
   );
 }
 
@@ -242,21 +236,9 @@ async function main() {
       await fs.mkdir(imagesetDir, { recursive: true });
 
       // Generate PNGs at 1x, 2x, and 3x
-      await convertSvgToPng(
-        icon.svgPath,
-        path.join(imagesetDir, `${icon.pascalName}.png`),
-        1
-      );
-      await convertSvgToPng(
-        icon.svgPath,
-        path.join(imagesetDir, `${icon.pascalName}@2x.png`),
-        2
-      );
-      await convertSvgToPng(
-        icon.svgPath,
-        path.join(imagesetDir, `${icon.pascalName}@3x.png`),
-        3
-      );
+      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}.png`), 1);
+      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}@2x.png`), 2);
+      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}@3x.png`), 3);
 
       // Generate Contents.json
       const contentsJson = generateContentsJson(icon.pascalName);
@@ -277,7 +259,7 @@ async function main() {
   await fs.writeFile(
     path.join(ASSETS_DIR, 'Contents.json'),
     JSON.stringify(rootContents, null, 2),
-    'utf-8'
+    'utf-8',
   );
 
   // Generate Swift enum
@@ -301,4 +283,3 @@ main().catch((error) => {
   console.error('❌ Build failed:', error);
   process.exit(1);
 });
-

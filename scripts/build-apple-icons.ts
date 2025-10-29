@@ -1,9 +1,9 @@
 #!/usr/bin/env tsx
 
+import { exec } from 'node:child_process';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
@@ -38,7 +38,7 @@ function toPascalCase(str: string): string {
  */
 async function checkDependencies(): Promise<void> {
   console.log('🔍 Checking dependencies...');
-  
+
   try {
     await execAsync('which rsvg-convert');
     console.log('✓ rsvg-convert found');
@@ -67,7 +67,7 @@ async function collectIcons(): Promise<IconInfo[]> {
 
     for (const category of categories) {
       if (category.startsWith('.')) continue;
-      
+
       const categoryPath = path.join(SVG_DIR, category);
       const stat = await fs.stat(categoryPath);
 
@@ -137,7 +137,7 @@ function generateContentsJson(filename: string): string {
       },
     },
     null,
-    2
+    2,
   );
 }
 
@@ -260,7 +260,7 @@ async function main() {
   await fs.writeFile(
     path.join(ASSETS_DIR, 'Contents.json'),
     JSON.stringify(rootContents, null, 2),
-    'utf-8'
+    'utf-8',
   );
 
   // Generate Swift enum
@@ -283,4 +283,3 @@ main().catch((error) => {
   console.error('❌ Build failed:', error);
   process.exit(1);
 });
-

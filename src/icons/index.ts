@@ -38,7 +38,7 @@ export {
   Sparkle,
   SquareGrid,
   User,
-  Users
+  Users,
 };
 
 // Registry for dynamic icon loading

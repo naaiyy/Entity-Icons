@@ -1,7 +1,7 @@
 import React from 'react';
-import type { IconComponent, IconName, IconProps, IconRegistry } from './types';
-import { IconBase } from './IconBase';
 import { registry } from '../icons/index';
+import { IconBase } from './IconBase';
+import type { IconComponent, IconName, IconProps, IconRegistry } from './types';
 
 /**
  * Render an icon dynamically by name
@@ -27,7 +27,7 @@ const core = {
    * ```
    */
   render,
-  
+
   /**
    * Registry of all available icons
    * @example
@@ -37,7 +37,7 @@ const core = {
    * ```
    */
   registry,
-  
+
   /**
    * Base icon component for creating custom icons
    * @example
@@ -60,4 +60,3 @@ export { IconBase };
 
 // Re-export all individual icons for named imports
 export * from '../icons/index';
-

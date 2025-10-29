@@ -7,9 +7,9 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase>
         <path d="M5 12h14" />
-      </IconBase>
+      </IconBase>,
     );
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeTruthy();
     expect(svg?.getAttribute('width')).toBe('24');
@@ -21,9 +21,9 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase size={32}>
         <path d="M5 12h14" />
-      </IconBase>
+      </IconBase>,
     );
-    
+
     const svg = container.querySelector('svg');
     expect(svg?.getAttribute('width')).toBe('32');
     expect(svg?.getAttribute('height')).toBe('32');
@@ -33,9 +33,9 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase color="red">
         <path d="M5 12h14" />
-      </IconBase>
+      </IconBase>,
     );
-    
+
     const svg = container.querySelector('svg');
     expect(svg?.getAttribute('stroke')).toBe('red');
   });
@@ -44,12 +44,12 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase title="Test Icon">
         <path d="M5 12h14" />
-      </IconBase>
+      </IconBase>,
     );
-    
+
     const svg = container.querySelector('svg');
     const title = container.querySelector('title');
-    
+
     expect(svg?.getAttribute('role')).toBe('img');
     expect(svg?.getAttribute('aria-hidden')).toBeNull();
     expect(title?.textContent).toBe('Test Icon');
@@ -59,9 +59,9 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase>
         <path d="M5 12h14" />
-      </IconBase>
+      </IconBase>,
     );
-    
+
     const svg = container.querySelector('svg');
     expect(svg?.getAttribute('role')).toBeNull();
     expect(svg?.getAttribute('aria-hidden')).toBe('true');
@@ -71,11 +71,10 @@ describe('IconBase', () => {
     const { container } = render(
       <IconBase className="custom-class">
         <path d="M5 12h14" />
-      </IconBase>
+      </IconBase>,
     );
-    
+
     const svg = container.querySelector('svg');
     expect(svg?.classList.contains('custom-class')).toBe(true);
   });
 });
-
