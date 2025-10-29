@@ -17,6 +17,7 @@ interface IconInfo {
   category: string;
   svgContent: string;
   filePath: string;
+  viewBox?: string;
 }
 
 /**
@@ -59,6 +60,17 @@ function extractSvgContent(svgString: string): string {
 }
 
 /**
+ * Extract the viewBox attribute from the original <svg> tag if present
+ */
+function extractViewBox(svgString: string): string | undefined {
+  const svgTagMatch = svgString.match(/<svg[^>]*>/i);
+  if (!svgTagMatch) return undefined;
+  const svgTag = svgTagMatch[0];
+  const viewBoxMatch = svgTag.match(/viewBox\s*=\s*"([^"]+)"/i);
+  return viewBoxMatch ? viewBoxMatch[1] : undefined;
+}
+
+/**
  * Generate TSX component from icon info
  */
 function generateComponent(icon: IconInfo): string {
@@ -67,7 +79,7 @@ import type { IconProps } from '../../core/types';
 
 export function ${icon.pascalName}(props: IconProps) {
   return (
-    <IconBase {...props}>
+    <IconBase {...props}${icon.viewBox ? ' viewBox="' + icon.viewBox + '"' : ''}>
       ${icon.svgContent}
     </IconBase>
   );
@@ -105,6 +117,7 @@ async function collectIcons(): Promise<IconInfo[]> {
           pascalName,
           category,
           svgContent: extractSvgContent(svgContent),
+          viewBox: extractViewBox(svgContent),
           filePath,
         });
       }

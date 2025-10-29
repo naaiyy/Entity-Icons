@@ -3,7 +3,7 @@ import type { IconProps } from '../../core/types';
 
 export function Google(props: IconProps) {
   return (
-    <IconBase {...props}>
+    <IconBase {...props} viewBox="0 0 268.1522 273.8827">
       <defs>
     <linearGradient id="a">
       <stop offset="0" stopColor="#0fbc5c"/>
