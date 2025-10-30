@@ -11,13 +11,15 @@ import { GithubLight } from './brand/GithubLight';
 import { Google } from './brand/Google';
 import { PasskeyDark } from './brand/PasskeyDark';
 import { PasskeyLight } from './brand/PasskeyLight';
-import { AtSign } from './system/AtSign';
+import { AtSignDark } from './system/AtSignDark';
+import { AtSignLight } from './system/AtSignLight';
 import { Chat } from './system/Chat';
 import { Folder } from './system/Folder';
 import { Home } from './system/Home';
 import { Inbox } from './system/Inbox';
 import { Layers } from './system/Layers';
-import { Password } from './system/Password';
+import { PasswordDark } from './system/PasswordDark';
+import { PasswordLight } from './system/PasswordLight';
 import { Settings } from './system/Settings';
 import { Sparkle } from './system/Sparkle';
 import { SquareGrid } from './system/SquareGrid';
@@ -31,13 +33,15 @@ export {
   Google,
   PasskeyDark,
   PasskeyLight,
-  AtSign,
+  AtSignDark,
+  AtSignLight,
   Chat,
   Folder,
   Home,
   Inbox,
   Layers,
-  Password,
+  PasswordDark,
+  PasswordLight,
   Settings,
   Sparkle,
   SquareGrid,
@@ -52,13 +56,15 @@ export const registry: IconRegistry = {
   Google,
   PasskeyDark,
   PasskeyLight,
-  AtSign,
+  AtSignDark,
+  AtSignLight,
   Chat,
   Folder,
   Home,
   Inbox,
   Layers,
-  Password,
+  PasswordDark,
+  PasswordLight,
   Settings,
   Sparkle,
   SquareGrid,
