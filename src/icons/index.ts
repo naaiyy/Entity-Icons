@@ -11,11 +11,13 @@ import { GithubLight } from './brand/GithubLight';
 import { Google } from './brand/Google';
 import { PasskeyDark } from './brand/PasskeyDark';
 import { PasskeyLight } from './brand/PasskeyLight';
+import { AtSign } from './system/AtSign';
 import { Chat } from './system/Chat';
 import { Folder } from './system/Folder';
 import { Home } from './system/Home';
 import { Inbox } from './system/Inbox';
 import { Layers } from './system/Layers';
+import { Password } from './system/Password';
 import { Settings } from './system/Settings';
 import { Sparkle } from './system/Sparkle';
 import { SquareGrid } from './system/SquareGrid';
@@ -29,16 +31,18 @@ export {
   Google,
   PasskeyDark,
   PasskeyLight,
+  AtSign,
   Chat,
   Folder,
   Home,
   Inbox,
   Layers,
+  Password,
   Settings,
   Sparkle,
   SquareGrid,
   User,
-  Users,
+  Users
 };
 
 // Registry for dynamic icon loading
@@ -48,11 +52,13 @@ export const registry: IconRegistry = {
   Google,
   PasskeyDark,
   PasskeyLight,
+  AtSign,
   Chat,
   Folder,
   Home,
   Inbox,
   Layers,
+  Password,
   Settings,
   Sparkle,
   SquareGrid,

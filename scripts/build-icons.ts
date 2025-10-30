@@ -54,7 +54,20 @@ function extractSvgContent(svgString: string): string {
     .replace(/\sstop-color=/g, ' stopColor=') // Convert stop-color to stopColor
     .replace(/\sstop-opacity=/g, ' stopOpacity=') // Convert stop-opacity to stopOpacity
     .replace(/\sxlink:href=/g, ' xlinkHref=') // Convert xlink:href to xlinkHref for React
-    .replace(/\scolor-interpolation-filters=/g, ' colorInterpolationFilters='); // Convert color-interpolation-filters for React
+    .replace(/\scolor-interpolation-filters=/g, ' colorInterpolationFilters=') // Convert color-interpolation-filters for React
+    // Common SVG attributes that must be camelCased in React
+    .replace(/\sfill-rule=/g, ' fillRule=')
+    .replace(/\sclip-rule=/g, ' clipRule=')
+    .replace(/\sfill-opacity=/g, ' fillOpacity=')
+    .replace(/\sstroke-width=/g, ' strokeWidth=')
+    .replace(/\sstroke-linecap=/g, ' strokeLinecap=')
+    .replace(/\sstroke-linejoin=/g, ' strokeLinejoin=')
+    .replace(/\sstroke-miterlimit=/g, ' strokeMiterlimit=')
+    .replace(/\sstroke-opacity=/g, ' strokeOpacity=')
+    .replace(/\sshape-rendering=/g, ' shapeRendering=')
+    .replace(/\stext-anchor=/g, ' textAnchor=')
+    .replace(/\sstroke-dasharray=/g, ' strokeDasharray=')
+    .replace(/\sstroke-dashoffset=/g, ' strokeDashoffset=');
 
   return content.trim();
 }

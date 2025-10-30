@@ -1,6 +1,6 @@
 {
   "name": "@entityy/entity-icons",
-  "version": "0.0.14",
+  "version": "0.0.16",
   "description": "Modern React icon library with ESM support and full TypeScript types",
   "type": "module",
   "main": "./dist/index.js",
@@ -14,7 +14,12 @@
     },
     "./icons/*": "./dist/icons/*.js"
   },
-  "files": ["dist", "apple", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "apple",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsx scripts/build-icons.ts && tsup",
     "build:apple": "tsx scripts/build-apple-icons-png.ts",
@@ -43,7 +48,15 @@
     "typescript": "^5.6.3",
     "vitest": "^2.1.5"
   },
-  "keywords": ["icons", "react", "svg", "components", "entity", "esm", "typescript"],
+  "keywords": [
+    "icons",
+    "react",
+    "svg",
+    "components",
+    "entity",
+    "esm",
+    "typescript"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/entityy/entity-icons.git"
