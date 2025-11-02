@@ -93,13 +93,16 @@ async function collectIcons(): Promise<IconInfo[]> {
 
 /**
  * Get the appropriate color for an icon based on its name
- * Dark icons are for light backgrounds, Light icons are for dark backgrounds
+ * 
+ * Naming convention:
+ * - `-dark` suffix: WHITE icon (used IN dark mode, on dark backgrounds)
+ * - `-light` suffix: BLACK icon (used IN light mode, on light backgrounds)
  */
 function getIconColor(iconName: string): string {
   if (iconName.includes('-dark')) {
-    return '#1C1C1E'; // Dark color for light mode backgrounds
+    return '#FFFFFF'; // White icon for dark mode backgrounds
   } else if (iconName.includes('-light')) {
-    return '#FFFFFF'; // Light color for dark mode backgrounds
+    return '#1C1C1E'; // Dark icon for light mode backgrounds
   }
   // Default color for icons without dark/light variants
   return '#1C1C1E';
