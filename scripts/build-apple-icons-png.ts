@@ -92,13 +92,47 @@ async function collectIcons(): Promise<IconInfo[]> {
 }
 
 /**
- * Convert SVG to PNG at multiple scales
+ * Get the appropriate color for an icon based on its name
+ * Dark icons are for light backgrounds, Light icons are for dark backgrounds
  */
-async function convertSvgToPng(svgPath: string, outputPath: string, scale: number): Promise<void> {
+function getIconColor(iconName: string): string {
+  if (iconName.includes('-dark')) {
+    return '#1C1C1E'; // Dark color for light mode backgrounds
+  } else if (iconName.includes('-light')) {
+    return '#FFFFFF'; // Light color for dark mode backgrounds
+  }
+  // Default color for icons without dark/light variants
+  return '#1C1C1E';
+}
+
+/**
+ * Convert SVG to PNG at multiple scales with proper color substitution
+ */
+async function convertSvgToPng(
+  svgPath: string,
+  outputPath: string,
+  scale: number,
+  iconName: string,
+): Promise<void> {
   const width = 24 * scale;
   const height = 24 * scale;
 
-  await execAsync(`rsvg-convert -w ${width} -h ${height} -o "${outputPath}" "${svgPath}"`);
+  // Read the SVG content
+  const svgContent = await fs.readFile(svgPath, 'utf-8');
+  
+  // Replace currentColor with the appropriate hex color
+  const color = getIconColor(iconName);
+  const coloredSvg = svgContent.replace(/currentColor/g, color);
+  
+  // Create a temporary SVG file with the color applied
+  const tmpSvgPath = path.join(TMP_DIR, `${iconName}-${scale}x.svg`);
+  await fs.writeFile(tmpSvgPath, coloredSvg, 'utf-8');
+  
+  // Convert the colored SVG to PNG
+  await execAsync(`rsvg-convert -w ${width} -h ${height} -o "${outputPath}" "${tmpSvgPath}"`);
+  
+  // Clean up the temporary SVG
+  await fs.unlink(tmpSvgPath);
 }
 
 /**
@@ -236,9 +270,9 @@ async function main() {
       await fs.mkdir(imagesetDir, { recursive: true });
 
       // Generate PNGs at 1x, 2x, and 3x
-      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}.png`), 1);
-      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}@2x.png`), 2);
-      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}@3x.png`), 3);
+      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}.png`), 1, icon.name);
+      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}@2x.png`), 2, icon.name);
+      await convertSvgToPng(icon.svgPath, path.join(imagesetDir, `${icon.pascalName}@3x.png`), 3, icon.name);
 
       // Generate Contents.json
       const contentsJson = generateContentsJson(icon.pascalName);
