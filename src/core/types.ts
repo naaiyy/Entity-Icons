@@ -62,6 +62,7 @@ export type IconName =
   | 'Inbox'
   | 'Layers'
   | 'Lock'
+  | 'PaperPlace'
   | 'PasswordDark'
   | 'PasswordLight'
   | 'PowerOff'

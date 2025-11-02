@@ -23,6 +23,7 @@ public enum EntityIcon: String, CaseIterable {
     case inbox = "Inbox"
     case layers = "Layers"
     case lock = "Lock"
+    case paper_place = "PaperPlace"
     case password_dark = "PasswordDark"
     case password_light = "PasswordLight"
     case power_off = "PowerOff"

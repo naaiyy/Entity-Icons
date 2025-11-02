@@ -20,6 +20,7 @@ import { Home } from './system/Home';
 import { Inbox } from './system/Inbox';
 import { Layers } from './system/Layers';
 import { Lock } from './system/Lock';
+import { PaperPlace } from './system/PaperPlace';
 import { PasswordDark } from './system/PasswordDark';
 import { PasswordLight } from './system/PasswordLight';
 import { PowerOff } from './system/PowerOff';
@@ -46,6 +47,7 @@ export {
   Inbox,
   Layers,
   Lock,
+  PaperPlace,
   PasswordDark,
   PasswordLight,
   PowerOff,
@@ -73,6 +75,7 @@ export const registry: IconRegistry = {
   Inbox,
   Layers,
   Lock,
+  PaperPlace,
   PasswordDark,
   PasswordLight,
   PowerOff,
