@@ -56,6 +56,7 @@ export type IconName =
   | 'AtSignDark'
   | 'AtSignLight'
   | 'Chat'
+  | 'DeleteX'
   | 'Folder'
   | 'Home'
   | 'Inbox'

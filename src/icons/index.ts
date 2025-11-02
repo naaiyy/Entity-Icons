@@ -14,6 +14,7 @@ import { PasskeyLight } from './brand/PasskeyLight';
 import { AtSignDark } from './system/AtSignDark';
 import { AtSignLight } from './system/AtSignLight';
 import { Chat } from './system/Chat';
+import { DeleteX } from './system/DeleteX';
 import { Folder } from './system/Folder';
 import { Home } from './system/Home';
 import { Inbox } from './system/Inbox';
@@ -39,6 +40,7 @@ export {
   AtSignDark,
   AtSignLight,
   Chat,
+  DeleteX,
   Folder,
   Home,
   Inbox,
@@ -65,6 +67,7 @@ export const registry: IconRegistry = {
   AtSignDark,
   AtSignLight,
   Chat,
+  DeleteX,
   Folder,
   Home,
   Inbox,
