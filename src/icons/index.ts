@@ -18,9 +18,12 @@ import { Folder } from './system/Folder';
 import { Home } from './system/Home';
 import { Inbox } from './system/Inbox';
 import { Layers } from './system/Layers';
+import { Lock } from './system/Lock';
 import { PasswordDark } from './system/PasswordDark';
 import { PasswordLight } from './system/PasswordLight';
+import { PowerOff } from './system/PowerOff';
 import { Settings } from './system/Settings';
+import { Sitemap } from './system/Sitemap';
 import { Sparkle } from './system/Sparkle';
 import { SquareGrid } from './system/SquareGrid';
 import { User } from './system/User';
@@ -40,9 +43,12 @@ export {
   Home,
   Inbox,
   Layers,
+  Lock,
   PasswordDark,
   PasswordLight,
+  PowerOff,
   Settings,
+  Sitemap,
   Sparkle,
   SquareGrid,
   User,
@@ -63,9 +69,12 @@ export const registry: IconRegistry = {
   Home,
   Inbox,
   Layers,
+  Lock,
   PasswordDark,
   PasswordLight,
+  PowerOff,
   Settings,
+  Sitemap,
   Sparkle,
   SquareGrid,
   User,
